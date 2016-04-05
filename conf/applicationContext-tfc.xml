@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tfc="http://com.iflytek.musicsearch/schema/tfc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://com.iflytek.musicsearch/schema/tfc
+        http://com.iflytek.musicsearch/schema/tfc/toolsframework.xsd
+        ">
+    
+    <tfc:quartz id="q" workerNum="2" />
+    <tfc:zk id="z" url="192.168.58.53:2181" root="/tfc" timeout="10000" />
+    
+    <!-- 需要使用jmx进行监控时才作如下配置 -->
+    <!-- <tfc:rmi id="r" port="8899" /> -->
+    
+	<tfc:loop id="looptest" taskname="looptest" loopnum="10" execonstart="false" 
+			handle="com.iflytek.musicsearch.toolsframework.spi.Demo_LoopBusinessRun" />
+	<tfc:multirun id="multitest" taskname="multitest" cron="0/10 * * * * ?" execonstart="false" threadcnt="1"
+			handle="com.iflytek.musicsearch.toolsframework.spi.SmsDemoBusinessRun" />
+
+</beans>

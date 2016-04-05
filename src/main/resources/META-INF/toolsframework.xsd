@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://com.iflytek.musicsearch/schema/tfc"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://com.iflytek.musicsearch/schema/tfc">
+
+	<xsd:annotation>
+		<xsd:documentation><![CDATA[ Namespace support for the dubbo services provided by dubbo framework. ]]></xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:complexType name="multiRunType">
+		<xsd:attribute name="id" type="xsd:ID">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The unique identifier for a bean. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="taskname" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the name of a task. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="cron" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the quartz cron, ex: 0/10 * * * * ? ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="threadcnt" type="xsd:int" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ only effected when jvmtype is "multi" and runtype is also "multi". ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="handle" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the policy's name, enum:["loop"]. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="execonstart" type="xsd:boolean" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The protocol transporter type. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:element name="multirun" type="multiRunType">
+		<xsd:annotation> 
+			<xsd:documentation><![CDATA[ The multirun config ]]></xsd:documentation> 
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="singleRunType">
+		<xsd:attribute name="id" type="xsd:ID">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The unique identifier for a bean. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="taskname" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the name of a task. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="cron" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the quartz cron, ex: 0/10 * * * * ? ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="handle" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the policy's name, enum:["loop"]. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="execonstart" type="xsd:boolean" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The protocol transporter type. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:element name="singlerun" type="singleRunType">
+		<xsd:annotation> 
+			<xsd:documentation><![CDATA[ The singlerun config ]]></xsd:documentation> 
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="loopType">
+		<xsd:attribute name="id" type="xsd:ID">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The unique identifier for a bean. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="taskname" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the name of a task. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="loopnum" type="xsd:int" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="handle" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the policy's name, enum:["loop"]. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="execonstart" type="xsd:boolean" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The protocol transporter type. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:element name="loop" type="loopType">
+		<xsd:annotation> 
+			<xsd:documentation><![CDATA[ The singlerun config ]]></xsd:documentation> 
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="quartzType">
+		<xsd:attribute name="id" type="xsd:ID">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The unique identifier for a bean. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="workerNum" type="xsd:int" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the number of quartz workers ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:element name="quartz" type="quartzType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[ quartz config ]]></xsd:documentation> 
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="zkType">
+		<xsd:attribute name="id" type="xsd:ID">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The unique identifier for a bean. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="url" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the number of quartz workers ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="root" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the number of quartz workers ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="timeout" type="xsd:int" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the number of quartz workers ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:element name="zk" type="zkType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[ zk config ]]></xsd:documentation> 
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="rmiType">
+		<xsd:attribute name="id" type="xsd:ID">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The unique identifier for a bean. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="port" type="xsd:int" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ the number of quartz workers ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:element name="rmi" type="rmiType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[ rmi config ]]></xsd:documentation> 
+		</xsd:annotation>
+	</xsd:element>
+	
+</xsd:schema>

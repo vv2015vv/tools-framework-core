@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+  
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' >
+  
+  	<!-- ************** -->
+  	<!-- 控制台输出：日志记录时要尽量避免使用控制台输出 -->
+  	<!-- ************** -->
+	<appender name="myConsole" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+		 	<param name="ConversionPattern" value="%d{yyyy-MM-dd HH\:mm\:ss} [%t] [%M] %m%n" />
+		</layout>
+		<!--过滤器设置输出的级别-->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="INFO" />
+			<param name="levelMax" value="ERROR" />
+		</filter>
+	</appender>
+ 
+ 	<!-- 日志按天记录 ERROR级别 -->
+ 	<!-- 异常日志不设置缓冲 -->
+	<appender name="File_Error" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/error" />
+		<param name="DatePattern" value="'.'yyyyMMdd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH\:mm\:ss} [%t] [%M] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR"/>
+			<param name="LevelMax" value="ERROR"/>
+		</filter>
+	</appender>
+	
+	<!-- 日志按天记录 INFO级别 -->
+	<!-- 考虑到info级别的日志一般都比较多，所以设置缓冲，达到一定量时再flush到磁盘上（以8K为单位，因为8K是磁盘的block大小，可以减少碎片） -->
+	<appender name="File_Info" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/info" /> 
+		<param name="DatePattern" value="'.'yyyyMMdd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH\:mm\:ss} [%t] [%M] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO"/>
+			<param name="LevelMax" value="INFO"/>
+		</filter>
+	</appender>
+
+	<!-- 根logger的设置-->
+	<root>
+		<!-- 配置为priority也能输出日志，但是启动时有个warn -->
+		<level value="INFO"/>
+		<appender-ref ref="File_Error"/>
+		<appender-ref ref="File_Info"/>	
+		<appender-ref ref="myConsole"/>	
+	</root>
+	
+</log4j:configuration>
