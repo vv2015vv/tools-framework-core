@@ -17,14 +17,17 @@
 	等等
 
 
-目前的开源软件中，淘宝的TBSchedule和当当的Elastic-Job均支持上述所描述的需求，
+在尝试开发这个框架之前，当时用过TBSchedule，
 
-不过由于TBSchedule资料比较少，使用起来比较费劲
+但是因为TBSchedule资料比较少，用起来太费劲，出现问题后不方便查找，
 
-而Elastic-Job本身比较庞大，所以基于当时自身项目的简单需求，
+所以基于当时自身项目的简单需求，开发了这个Tools-frame-work框架。
 
-开发了这个Tools-frame-work框架，支持的特性如下：
+虽然后来发现开源框架Elastic-Job（当当ddframe的一部分）还不错，
 
+不过我还是坚持开发下去了，作为学习的一个过程。
+
+tools-frame-work支持的特性如下：
 
 	1、非常简单，依赖也很少，只用一个jar包即可实现上述功能
 
