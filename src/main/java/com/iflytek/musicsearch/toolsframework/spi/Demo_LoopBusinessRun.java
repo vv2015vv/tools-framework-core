@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-public class Demo_LoopBusinessRun implements BusinessRun{
+public class Demo_LoopBusinessRun implements BusinessRun<String>{
 	
 	Logger logger = Logger.getLogger(Demo_LoopBusinessRun.class);
 	
@@ -25,7 +25,7 @@ public class Demo_LoopBusinessRun implements BusinessRun{
 
 
 	@Override
-	public void execute(String taskid) {
+	public void execute(String item) {
 		// TODO Auto-generated method stub
 		
 	}

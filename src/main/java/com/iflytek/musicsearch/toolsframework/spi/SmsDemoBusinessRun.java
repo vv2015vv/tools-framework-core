@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-public class SmsDemoBusinessRun implements BusinessRun{
+public class SmsDemoBusinessRun implements BusinessRun<String>{
 	
 	Logger logger = Logger.getLogger(SmsDemoBusinessRun.class);
 	
@@ -34,7 +34,7 @@ public class SmsDemoBusinessRun implements BusinessRun{
 
 
 	@Override
-	public void execute(String taskid) {
+	public void execute(String item) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -53,6 +53,5 @@ public class SmsDemoBusinessRun implements BusinessRun{
 		}
 		return list;
 	}
-
 
 }

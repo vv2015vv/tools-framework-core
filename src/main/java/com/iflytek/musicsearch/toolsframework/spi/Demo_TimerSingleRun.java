@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-public class Demo_TimerSingleRun implements BusinessRun {
+public class Demo_TimerSingleRun implements BusinessRun<Object> {
 
 	Logger logger = Logger.getLogger(SmsDemoBusinessRun.class);
 	
@@ -27,13 +27,13 @@ public class Demo_TimerSingleRun implements BusinessRun {
 	}
 
 	@Override
-	public List<String> divide(int index, int len) {
+	public List<Object> divide(int index, int len) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void execute(String taskid) {
+	public void execute(Object item) {
 		// TODO Auto-generated method stub
 		
 	}

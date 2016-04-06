@@ -7,7 +7,7 @@ import java.util.List;
  * @author rlyu
  *
  */
-public interface BusinessRun extends Runnable{
+public interface BusinessRun<T> extends Runnable{
 	/**
 	 * 业务实现初始化，
 	 * @param config
@@ -24,11 +24,11 @@ public interface BusinessRun extends Runnable{
 	 * @param index 根据zk节点的索引位置进行拆分
 	 * @param len zk中节点的总数
 	 */
-	public List<String> divide(int index, int len);
+	public List<T> divide(int index, int len);
 	
 	/**
 	 * 拆分任务后，多线程调用的方法
 	 * @param taskid
 	 */
-	public void execute(String taskid);
+	public void execute(T item);
 }

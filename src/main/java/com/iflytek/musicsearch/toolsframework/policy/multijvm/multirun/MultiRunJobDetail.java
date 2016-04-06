@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
@@ -49,12 +48,12 @@ public class MultiRunJobDetail implements Job {
 				logger.info(String.format("任务：【%s】 开始运行...", taskName));
 				context.setTaskStart(true);
 				
-				BusinessRun runnable = entity.getRunnable();
+				BusinessRun<?> runnable = entity.getRunnable();
 				int threadCnt = entity.getThreadCnt();
 				
 				boolean canRedivde = false; //表示节点发生变化后，当前实例是否可以开始以新的len和index进行拆分
 				boolean canRun = true; //在准备以新len和index拆分时，判断其他节点的标志值滞后，确定本周期是否能执行，否则要等待到下一个周期
-				List<String> list = new ArrayList<String>();
+				List<Object> list = new ArrayList<Object>();
 				
 				//在任务执行过程中，涉及到延迟和拆分变更的场景只有两个入口：1-刚启动   2-节点变化，两个入口分别带动其他的逻辑判断
 				
@@ -100,15 +99,15 @@ public class MultiRunJobDetail implements Job {
 					if(canRun){
 						if(canRedivde){
 							logger.info(String.format("任务：【%s】本次拆分依据：len-%d  index-%d", taskName, entity.getCurrNodeCnt(), entity.getCurrIndex()));
-							list = runnable.divide(entity.getCurrIndex(), entity.getCurrNodeCnt());
+							list = (List<Object>) runnable.divide(entity.getCurrIndex(), entity.getCurrNodeCnt());
 							entity.setOriginalValue(entity.getCurrNodeCnt(), entity.getCurrIndex());
 						}else{
 							logger.info(String.format("任务：【%s】本次拆分依据：len-%d  index-%d", taskName, entity.getOriginalNodeCnt(), entity.getOriginalIndex()));
-							list = runnable.divide(entity.getOriginalIndex(), entity.getOriginalNodeCnt());
+							list = (List<Object>) runnable.divide(entity.getOriginalIndex(), entity.getOriginalNodeCnt());
 						}
 						if(list.size() > 0){
 							//logger.info(String.format("任务：【%s】 获取的数据为：%s", taskName, list.toString()));
-							final Queue<String> queue = new ConcurrentLinkedQueue<String>(list);
+							final Queue<Object> queue = new ConcurrentLinkedQueue<Object>(list);
 							excuteBizTask(taskName, runnable, queue, threadCnt);
 						}
 						//之所以选择在redivide前的一个周期修改标志值，是为了避免多个实例间的死锁
@@ -147,7 +146,7 @@ public class MultiRunJobDetail implements Job {
 	 * @param threadCnt
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes" })
-	private void excuteBizTask(final String taskName, final BusinessRun runnable, final Queue<String> queue, int threadCnt){
+	private void excuteBizTask(final String taskName, final BusinessRun runnable, final Queue<Object> queue, int threadCnt){
 		List<FutureTask<?>> tasks = new ArrayList<FutureTask<?>>();
 		ExecutorService executor = MultiRunCommon.getMapExecutorService().get(taskName);
 		for(int i=0; i<threadCnt; i++){
@@ -155,8 +154,8 @@ public class MultiRunJobDetail implements Job {
 				@Override
 				public Object call() throws Exception {
 					while(queue.size() > 0){
-						String taskItem = queue.poll();
-						if(StringUtils.isNotBlank(taskItem)){
+						Object taskItem = queue.poll();
+						if(taskItem != null){
 							try {
 								runnable.execute(taskItem);
 								logger.info(String.format("任务：【%s】 的 item：【%s】处理完成", taskName, taskItem));
